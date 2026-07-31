@@ -19,13 +19,13 @@
   }
   
   body { background: var(--dark); color: var(--text); font-family: var(--font-body); min-height: 100vh; padding-bottom: 70px; }
-  .app { max-width: 700px; margin: 0 auto; padding: 12px 12px 40px; }
+  .app { max-width: 420px; margin: 0 auto; padding: 12px 12px 40px; }
   
   /* Compact Mobile Header */
-  .header { text-align: center; margin: 8px 0 16px; }
-  .kanji-row { font-size: 9px; letter-spacing: 6px; color: var(--text-muted); font-family: var(--font-mono); }
-  .title-main { font-family: var(--font-title); font-size: clamp(28px, 8vw, 44px); letter-spacing: 2px; line-height: 1; color: var(--text); }
-  .title-sub { font-family: var(--font-title); font-size: clamp(10px, 3vw, 14px); letter-spacing: 2px; color: var(--gold); margin-top: 2px; }
+  .header { text-align: center; margin: 8px 0 16px; padding: 0 8px; }
+  .kanji-row { font-size: 8px; letter-spacing: 3px; color: var(--text-muted); font-family: var(--font-mono); }
+  .title-main { display: block; width: 100%; text-align: center; font-family: var(--font-title); font-size: clamp(24px, 8vw, 38px); letter-spacing: 1px; line-height: 1.05; color: var(--text); margin-top: 4px; }
+  .title-sub { display: block; width: 100%; text-align: center; font-family: var(--font-title); font-size: clamp(11px, 3.2vw, 15px); letter-spacing: 1.5px; color: var(--gold); margin-top: 4px; }
 
   /* Bottom Navigation Bar for Mobile */
   .nav-tabs { 
@@ -85,12 +85,15 @@
   .belt-rank-bar { width: 44px; height: 100%; background: #000; position: absolute; right: 12px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 2px; }
   .bjj-belt.black .belt-rank-bar { background: var(--red); }
   
-  .card-belt-graphic { width: 64px; height: 16px; background: var(--belt-white); position: relative; display: flex; justify-content: flex-end; align-items: center; border: 1px solid #000; flex-shrink: 0; }
+  .card-belt-graphic { width: 48px; height: 14px; background: var(--belt-white); position: relative; display: flex; justify-content: flex-end; align-items: center; border: 1px solid #000; flex-shrink: 0; }
+  .card-belt-graphic.large { width: 90px; height: 18px; justify-self: center; }
   .card-belt-graphic.blue { background: var(--belt-blue); }
   .card-belt-graphic.purple { background: var(--belt-purple); }
   .card-belt-graphic.brown { background: var(--belt-brown); }
   .card-belt-graphic.black { background: var(--belt-black); border: 1px solid var(--belt-black-border); }
   .card-belt-bar { width: 18px; height: 100%; background: #000; position: absolute; right: 4px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 1px; }
+  .card-belt-graphic.large .card-belt-bar { width: 24px; right: 6px; }
+  .card-belt-graphic.large .card-stripe-mark { width: 3px; }
   .card-belt-graphic.black .card-belt-bar { background: var(--red); }
 
   .stripe-mark { width: 3px; height: 85%; background: #fff; }
@@ -130,24 +133,47 @@
   .habit-group { margin-bottom: 12px; padding: 12px; background: var(--dark2); border: 1px solid var(--border); border-radius: 4px; }
   .habit-group.completed { border-color: var(--gold); background: rgba(212, 160, 23, 0.03); }
 
-  .group-title { display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: var(--font-mono); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--gold); }
-  .dual-badges { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
-  .badge-item { font-size: 8px; font-family: var(--font-mono); padding: 2px 5px; border: 1px solid var(--border-light); background: var(--dark3); border-radius: 2px; }
-  .badge-item.streak { color: var(--red-light); }
-  .badge-item.floor { color: var(--gold); }
+  .group-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 11px; font-family: var(--font-mono); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--gold); letter-spacing: 1px; }
+  .group-title > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dual-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .badge-item { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; font-family: var(--font-mono); padding: 5px 8px; border-radius: 20px; line-height: 1; white-space: nowrap; }
+  .badge-item.streak { color: var(--red-light); background: rgba(231, 76, 60, 0.12); border: 1px solid rgba(231, 76, 60, 0.3); }
+  .badge-item.floor { color: var(--gold); background: rgba(212, 160, 23, 0.12); border: 1px solid rgba(212, 160, 23, 0.3); }
 
-  .progress-header { display: flex; justify-content: space-between; align-items: center; margin: 6px 0 4px; gap: 6px; }
-  .progress-label { font-size: 8px; color: var(--text-muted); font-family: var(--font-mono); }
-  .progress-track { height: 3px; background: var(--dark4); margin-bottom: 8px; }
-  .progress-fill { height: 100%; background: linear-gradient(to right, var(--red), var(--gold)); }
+  /* Belt status box: full-width belt visual, then belt name + "to go" below it */
+  .belt-status-box { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .pillar-belt-visual { width: 100%; height: 28px; background: var(--dark3); border: 1px solid var(--border); border-radius: 4px; position: relative; display: flex; justify-content: flex-end; align-items: center; overflow: hidden; margin-bottom: 12px; }
+  .pillar-belt-visual.white { background: var(--belt-white); border-color: #000; }
+  .pillar-belt-visual.blue { background: var(--belt-blue); border-color: #000; }
+  .pillar-belt-visual.purple { background: var(--belt-purple); border-color: #000; }
+  .pillar-belt-visual.brown { background: var(--belt-brown); border-color: #000; }
+  .pillar-belt-visual.black { background: var(--belt-black); border-color: var(--belt-black-border); }
+  .pillar-belt-visual .belt-rank-bar { width: 56px; height: 100%; background: #000; position: absolute; right: 14px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 3px; }
+  .pillar-belt-visual.black .belt-rank-bar { background: var(--red); }
+  .belt-status-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .belt-status-label { font-size: 13px; color: var(--text); font-family: var(--font-mono); letter-spacing: 0.5px; }
+  .belt-status-togo { font-size: 13px; color: var(--gold); font-family: var(--font-mono); letter-spacing: 0.5px; }
 
-  /* Touch-Friendly Habit Items */
+  /* Status chips: icon + headline + description, boxed like the belt status */
+  .status-chip { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1px solid; margin-bottom: 10px; }
+  .status-chip-icon { font-size: 17px; line-height: 1.1; flex-shrink: 0; }
+  .status-chip-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .status-chip-main { font-size: 12px; font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.3px; }
+  .status-chip-sub { font-size: 11.5px; font-family: var(--font-body); color: var(--text-muted); line-height: 1.3; }
+  .status-chip.warning { border-color: rgba(192, 57, 43, 0.4); background: rgba(192, 57, 43, 0.07); animation: warnPulse 2s ease-in-out infinite; }
+  .status-chip.warning .status-chip-main { color: #fca5a5; }
+  .status-chip.pending { border-color: rgba(192, 57, 43, 0.4); background: rgba(192, 57, 43, 0.07); }
+  .status-chip.pending .status-chip-main { color: #fca5a5; }
+  .status-chip b { font-weight: 700; }
+  @keyframes warnPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+
+  /* Touch-Friendly Habit Items — each its own boxed row */
   .habit-item { 
     display: flex; align-items: center; justify-content: space-between; 
-    padding: 10px 6px; border-bottom: 1px solid var(--border); cursor: pointer; 
-    border-radius: 3px; transition: background 0.15s; min-height: 44px;
+    padding: 12px 12px; border: 1px solid var(--border); cursor: pointer; 
+    border-radius: 8px; transition: background 0.15s; min-height: 44px; margin-bottom: 8px;
   }
-  .habit-item:last-child { border-bottom: none; }
+  .habit-item:last-child { margin-bottom: 0; }
   .habit-item:active { background: var(--dark3); }
   .habit-left { display: flex; align-items: center; gap: 10px; flex: 1; }
   .habit-icon { width: 22px; height: 22px; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 9px; font-family: var(--font-mono); color: var(--text-dim); flex-shrink: 0; }
@@ -179,18 +205,51 @@
   .rules-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); margin-top: 8px; }
   .rules-table th, .rules-table td { border: 1px solid var(--border-light); padding: 8px; text-align: left; }
   .rules-table th { background: var(--dark2); color: var(--gold); }
+
+  /* Stats Page */
+  .completion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .completion-card { background: var(--dark2); border: 1px solid var(--border); border-radius: 4px; padding: 14px 10px; text-align: center; }
+  .completion-label { font-size: 8px; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 1.5px; margin-bottom: 6px; }
+  .completion-pct { font-family: var(--font-title); font-size: 30px; color: var(--gold); line-height: 1; letter-spacing: 1px; }
+  .completion-track { height: 6px; background: var(--dark4); border-radius: 3px; margin: 10px 0 6px; overflow: hidden; }
+  .completion-fill { height: 100%; background: linear-gradient(to right, var(--red), var(--gold)); transition: width 0.3s ease; }
+  .completion-sub { font-size: 8px; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 1px; }
+
+  .bar-chart { display: flex; align-items: flex-end; gap: 3px; height: 120px; background: var(--dark2); border: 1px solid var(--border); border-radius: 4px; padding: 10px 8px 4px; margin-bottom: 8px; }
+  .bar-chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; cursor: pointer; }
+  .bar-chart-bar { width: 100%; border-radius: 2px 2px 0 0; min-height: 3px; transition: opacity 0.15s; }
+  .bar-chart-col:active .bar-chart-bar { opacity: 0.7; }
+  .bar-chart-bar.today { box-shadow: 0 0 0 1px var(--red-light) inset; }
+  .bar-chart-legend { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; font-size: 8px; font-family: var(--font-mono); color: var(--text-dim); letter-spacing: 1px; margin-bottom: 16px; }
+  .bar-chart-legend span { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+
+  .current-belt-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--dark2); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; margin-bottom: 8px; }
+  .current-belt-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .current-belt-title { font-size: 10px; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .current-belt-date { font-size: 8px; font-family: var(--font-mono); color: var(--text-dim); letter-spacing: 1px; }
+  .current-belt-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+  .current-belt-top { display: flex; align-items: center; gap: 8px; }
+  .current-belt-name { font-family: var(--font-title); font-size: 15px; color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+  .current-best-streak { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--red-light); white-space: nowrap; }
+
+  .heatmap-wrapper { overflow-x: auto; padding: 10px 8px; margin-bottom: 8px; background: var(--dark2); border: 1px solid var(--border); border-radius: 4px; }
+  .heatmap-grid { display: flex; gap: 3px; width: max-content; }
+  .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+  .heatmap-cell { width: 9px; height: 9px; border-radius: 2px; background: var(--dark4); cursor: pointer; }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header">
-    <div class="kanji-row">BJJ・習慣トラッカー</div>
+    <div class="kanji-row">NO EXCUSES • NO MERCY • NO DAYS OFF</div>
     <span class="title-main">BADASS HABIT TRACKER</span>
     <span class="title-sub">Become A Bad Motherfucker</span>
   </div>
 
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('tracker')">DASHBOARD</button>
+    <button class="tab-btn" onclick="switchTab('stats')">STATS</button>
     <button class="tab-btn" onclick="switchTab('goals')">GOALS</button>
     <button class="tab-btn" onclick="switchTab('manifesto')">MANIFESTO</button>
     <button class="tab-btn" onclick="switchTab('rules')">RULES</button>
@@ -198,17 +257,6 @@
 
   <!-- DASHBOARD -->
   <div id="page-tracker" class="page-content active">
-    <div class="overview-banner">
-      <div>
-        <div class="overview-title">HIGHEST RANK</div>
-        <div class="overview-val" id="highest-rank-val">WHITE BELT</div>
-      </div>
-      <div style="text-align: right;">
-        <div class="overview-title">LEADER</div>
-        <div class="overview-val" style="color:var(--text)" id="leading-pillar-val">NONE</div>
-      </div>
-    </div>
-
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-num highlight" id="stat-score">0/5</div>
@@ -245,6 +293,46 @@
     <button class="reset-btn" onclick="resetAllData()">↺ RESET ALL DATA</button>
   </div>
 
+  <!-- STATS -->
+  <div id="page-stats" class="page-content">
+    <div class="section-label">COMPLETION</div>
+    <div class="completion-grid">
+      <div class="completion-card">
+        <div class="completion-label">PAST 30 DAYS</div>
+        <div class="completion-pct" id="past30-completion-pct">0%</div>
+        <div class="completion-track"><div class="completion-fill" id="past30-completion-fill"></div></div>
+        <div class="completion-sub" id="past30-completion-sub">0 / 0</div>
+      </div>
+      <div class="completion-card">
+        <div class="completion-label">PAST 365 DAYS</div>
+        <div class="completion-pct" id="past365-completion-pct">0%</div>
+        <div class="completion-track"><div class="completion-fill" id="past365-completion-fill"></div></div>
+        <div class="completion-sub" id="past365-completion-sub">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="section-label">LAST 365 DAYS</div>
+    <div class="heatmap-wrapper" id="heatmap-365"></div>
+    <div class="bar-chart-legend">
+      <span><span class="legend-dot" style="background:var(--dark4)"></span>MISSED</span>
+      <span><span class="legend-dot" style="background:var(--gold); opacity:0.4"></span>PARTIAL</span>
+      <span><span class="legend-dot" style="background:var(--gold)"></span>ALL 5</span>
+      <span><span class="legend-dot" style="background:var(--cyan)"></span>FROZEN</span>
+    </div>
+
+    <div class="section-label">LAST 30 DAYS</div>
+    <div class="bar-chart" id="bar-chart-30"></div>
+    <div class="bar-chart-legend">
+      <span><span class="legend-dot" style="background:var(--dark4)"></span>MISSED</span>
+      <span><span class="legend-dot" style="background:var(--red-light)"></span>PARTIAL</span>
+      <span><span class="legend-dot" style="background:var(--gold)"></span>ALL 5</span>
+      <span><span class="legend-dot" style="background:var(--cyan)"></span>FROZEN</span>
+    </div>
+
+    <div class="section-label">CURRENT BELTS & BEST STREAKS</div>
+    <div id="current-belts-container"></div>
+  </div>
+
   <!-- GOALS -->
   <div id="page-goals" class="page-content">
     <div class="section-label">TARGETS & MILESTONES</div>
@@ -274,6 +362,37 @@
         <tr><td>🟣 PURPLE</td><td>90d</td><td>112d | 135d | 157d | 170d</td></tr>
         <tr><td>🟤 BROWN</td><td>180d</td><td>225d | 270d | 315d | 350d</td></tr>
         <tr><td>⬛ BLACK</td><td>365d</td><td>+90d per Degree</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">PENALTY SYSTEM</div>
+    <table class="rules-table">
+      <thead>
+        <tr><th>DAY OUTCOME</th><th>EFFECT</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>✅ Pillar completed</td><td>+1 progress day. Active streak continues.</td></tr>
+        <tr><td>⚠️ Missed 1 day</td><td>Soft penalty. Progress rolls back to your last earned checkpoint (nearest stripe or belt base at or below your current days).</td></tr>
+        <tr><td>❌ Missed 2+ days in a row</td><td>Hard penalty. Progress resets all the way down to your permanent FLOOR (the base of the highest belt you've ever locked in).</td></tr>
+        <tr><td>❄️ Frozen day</td><td>Not a miss. Excluded entirely from streak and penalty calculations.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">FLOOR LOCK</div>
+    <table class="rules-table">
+      <tbody>
+        <tr><td>Once a pillar's progress reaches a belt's <strong>base</strong> day count (0d / 30d / 90d / 180d / 365d), that belt is locked in permanently as your FLOOR.</td></tr>
+        <tr><td>No matter how many days you miss afterward, a hard penalty can never drop you below your FLOOR — only stripes and belts above it are at risk.</td></tr>
+        <tr><td>Stripes earned between belt bases are NOT locked — missing days can roll you back past a stripe down to your FLOOR if the miss streak is long enough.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">FREEZES</div>
+    <table class="rules-table">
+      <tbody>
+        <tr><td>Each calendar month grants 3 FREEZES.</td></tr>
+        <tr><td>Use a freeze on a day (past or present) to pause tracking — that day counts toward nothing and breaks nothing.</td></tr>
+        <tr><td>Unused freezes do not roll over to the next month.</td></tr>
       </tbody>
     </table>
   </div>
@@ -354,11 +473,24 @@
   function calculatePillarData() {
     const sortedDates = Object.keys(state.history).sort();
     const activeStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const bestStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const maxHistoricalStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const rankProgressDays = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const missStreak = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const beltEarnedDate = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} };
+    let settledYesterday = null;
 
     sortedDates.forEach(dateKey => {
+      // Snapshot the state as it stood BEFORE today is processed, so an
+      // in-progress (not-yet-complete) today doesn't prematurely apply
+      // today's miss rollback or wipe today's streak before the day is over.
+      if (dateKey === todayStr && settledYesterday === null) {
+        settledYesterday = {
+          activeStreaks: { ...activeStreaks },
+          beltDays: { ...rankProgressDays },
+          missStreak: { ...missStreak }
+        };
+      }
       const dayData = state.history[dateKey];
       PILLARS_DEF.forEach(pDef => {
         if (dayData && dayData.frozen) return;
@@ -369,9 +501,17 @@
           activeStreaks[pDef.id] += 1;
           rankProgressDays[pDef.id] += 1;
           missStreak[pDef.id] = 0;
+          if (activeStreaks[pDef.id] > bestStreaks[pDef.id]) {
+            bestStreaks[pDef.id] = activeStreaks[pDef.id];
+          }
           if (rankProgressDays[pDef.id] > maxHistoricalStreaks[pDef.id]) {
             maxHistoricalStreaks[pDef.id] = rankProgressDays[pDef.id];
           }
+          CONFIG.belts.forEach(b => {
+            if (rankProgressDays[pDef.id] >= b.min && beltEarnedDate[pDef.id][b.min] === undefined) {
+              beltEarnedDate[pDef.id][b.min] = dateKey;
+            }
+          });
         } else {
           activeStreaks[pDef.id] = 0;
           missStreak[pDef.id] += 1;
@@ -393,15 +533,26 @@
       });
     });
 
-    return { activeStreaks, beltDays: rankProgressDays };
+    // If today has no history entry yet, the loop never hit todayStr, which
+    // means the running totals already reflect the state as of yesterday.
+    if (settledYesterday === null) {
+      settledYesterday = {
+        activeStreaks: { ...activeStreaks },
+        beltDays: { ...rankProgressDays },
+        missStreak: { ...missStreak }
+      };
+    }
+
+    return { activeStreaks, beltDays: rankProgressDays, bestStreaks, beltEarnedDate, settledYesterday };
   }
 
   function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-    const tabMap = { tracker: 0, goals: 1, manifesto: 2, rules: 3 };
+    const tabMap = { tracker: 0, stats: 1, goals: 2, manifesto: 3, rules: 4 };
     document.querySelectorAll('.tab-btn')[tabMap[tab]].classList.add('active');
     document.getElementById(`page-${tab}`).classList.add('active');
+    if (tab === 'stats') renderStats();
   }
 
   function toggleCalendar() {
@@ -443,7 +594,7 @@
     const container = document.getElementById('pillars-container'); container.innerHTML = '';
     const todayData = state.history[todayStr] || { completedItems: [] };
     const todayChecked = todayData.completedItems || [];
-    const { activeStreaks, beltDays } = calculatePillarData();
+    const { activeStreaks, beltDays, settledYesterday } = calculatePillarData();
 
     let completedCount = 0, highestBeltObj = CONFIG.belts[0], leadingPillar = null, maxDays = -1;
 
@@ -451,11 +602,18 @@
       const isDone = isPillarComplete(pDef, todayChecked);
       if (isDone) completedCount++;
 
-      const streakVal = activeStreaks[pDef.id] || 0;
-      const effectiveBeltDays = beltDays[pDef.id] || 0;
+      // While today is still open and this pillar isn't done yet, keep showing
+      // yesterday's settled numbers rather than the live/rolled-back preview —
+      // today only "counts" (for better or worse) once the day is actually over.
+      const settledStreak = settledYesterday.activeStreaks[pDef.id] || 0;
+      const settledBeltDays = settledYesterday.beltDays[pDef.id] || 0;
+      const missStreakYesterday = settledYesterday.missStreak[pDef.id] || 0;
+
+      const streakVal = isDone ? (activeStreaks[pDef.id] || 0) : settledStreak;
+      const effectiveBeltDays = isDone ? (beltDays[pDef.id] || 0) : settledBeltDays;
+      const pendingBeltDays = settledBeltDays + 1;
       const beltInfo = getPillarBelt(effectiveBeltDays);
       const daysToNext = beltInfo.nextCheckpoint - effectiveBeltDays;
-      const pct = Math.min(100, Math.round(((effectiveBeltDays - beltInfo.min) / ((beltInfo.nextBelt ? beltInfo.nextBelt.min : 1000) - beltInfo.min)) * 100));
 
       if (beltInfo.min > highestBeltObj.min) highestBeltObj = beltInfo;
       if (effectiveBeltDays > maxDays) { maxDays = effectiveBeltDays; leadingPillar = pDef.title; }
@@ -477,8 +635,31 @@
         `;
       }).join('');
 
-      let cardStripesHtml = '';
-      for(let s=0; s<beltInfo.stripesCount; s++) { cardStripesHtml += '<div class="card-stripe-mark"></div>'; }
+      let beltStripesHtml = '';
+      for(let s=0; s<beltInfo.stripesCount; s++) { beltStripesHtml += '<div class="stripe-mark"></div>'; }
+
+      const atRiskOfReset = !isDone && missStreakYesterday === 1;
+      const warningHtml = atRiskOfReset
+        ? `<div class="status-chip warning">
+             <span class="status-chip-icon">⚠️</span>
+             <div class="status-chip-text">
+               <span class="status-chip-main">1 MORE MISS = RESET TO ${getEarnedBeltFloor(effectiveBeltDays)}d FLOOR</span>
+               <span class="status-chip-sub">You missed yesterday — complete this today to avoid the reset.</span>
+             </div>
+           </div>`
+        : '';
+
+      // Show the pending chip only when there's no reset warning already occupying
+      // that space — avoids stacking two chips and keeps the mobile card compact.
+      const pendingHtml = (!isDone && !atRiskOfReset)
+        ? `<div class="status-chip pending">
+             <span class="status-chip-icon">🔒</span>
+             <div class="status-chip-text">
+               <span class="status-chip-main">${effectiveBeltDays}d LOCKED — COMPLETE TODAY → ${pendingBeltDays}d</span>
+               <span class="status-chip-sub">Finish all tasks today to lock in the extra day.</span>
+             </div>
+           </div>`
+        : '';
 
       group.innerHTML = `
         <div class="group-title">
@@ -488,21 +669,22 @@
             <span class="badge-item floor">🛡️ ${getEarnedBeltFloor(effectiveBeltDays)}d</span>
           </div>
         </div>
-        <div class="progress-header">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <div class="card-belt-graphic ${beltInfo.class}"><div class="card-belt-bar">${cardStripesHtml}</div></div>
-            <div class="progress-label">${beltInfo.name.toUpperCase()} (${effectiveBeltDays}d)</div>
+        <div class="belt-status-box">
+          <div class="pillar-belt-visual ${beltInfo.class}">
+            <div class="belt-rank-bar">${beltStripesHtml}</div>
           </div>
-          <div class="progress-label" style="color:var(--gold)">${daysToNext}d TO GO</div>
+          <div class="belt-status-row">
+            <div class="belt-status-label">${beltInfo.name.toUpperCase()} BELT (${effectiveBeltDays}d)</div>
+            <div class="belt-status-togo">${daysToNext}d TO GO</div>
+          </div>
         </div>
-        <div class="progress-track"><div class="progress-fill" style="width: ${pct}%"></div></div>
+        ${warningHtml}
+        ${pendingHtml}
         ${itemsHtml}
       `;
       container.appendChild(group);
     });
 
-    document.getElementById('highest-rank-val').textContent = `${highestBeltObj.name.toUpperCase()} BELT`;
-    document.getElementById('leading-pillar-val').textContent = leadingPillar || 'NONE';
 
     const dailyRank = CONFIG.dailyRanks[completedCount];
     document.getElementById('stat-score').textContent = `${completedCount}/5`;
@@ -706,6 +888,153 @@
       state = { history: {}, freezes: { [currentMonthKey]: 3 }, manifesto: "", goals: [] };
       saveState(); renderApp();
     }
+  }
+
+  function heatColor(score) {
+    if (score <= 0) return null; // use default dark4 from CSS
+    const steps = [0.25, 0.45, 0.65, 0.85, 1];
+    return `rgba(212, 160, 23, ${steps[Math.min(score, 5) - 1]})`;
+  }
+
+  function renderHeatmap(containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    const today = new Date(now); today.setHours(0, 0, 0, 0);
+    const startDate = new Date(today); startDate.setDate(startDate.getDate() - 364);
+    const gridStart = new Date(startDate); gridStart.setDate(gridStart.getDate() - gridStart.getDay());
+
+    const totalDays = Math.floor((today - gridStart) / 86400000) + 1;
+    const weeks = Math.ceil(totalDays / 7);
+
+    const grid = document.createElement('div');
+    grid.className = 'heatmap-grid';
+
+    for (let w = 0; w < weeks; w++) {
+      const col = document.createElement('div');
+      col.className = 'heatmap-col';
+      for (let d = 0; d < 7; d++) {
+        const cellDate = new Date(gridStart);
+        cellDate.setDate(cellDate.getDate() + w * 7 + d);
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+
+        if (cellDate < startDate || cellDate > today) {
+          cell.style.visibility = 'hidden';
+        } else {
+          const dk = `${cellDate.getFullYear()}-${String(cellDate.getMonth() + 1).padStart(2, '0')}-${String(cellDate.getDate()).padStart(2, '0')}`;
+          const dayData = state.history[dk];
+          let score = 0, frozen = false;
+          if (dayData && dayData.frozen) frozen = true;
+          else if (dayData && dayData.completedItems) score = PILLARS_DEF.filter(p => isPillarComplete(p, dayData.completedItems)).length;
+
+          if (frozen) cell.style.background = 'var(--cyan)';
+          else { const c = heatColor(score); if (c) cell.style.background = c; }
+          cell.title = `${dk}: ${frozen ? 'FROZEN' : score + '/5'}`;
+          cell.onclick = () => openModal(dk);
+        }
+        col.appendChild(cell);
+      }
+      grid.appendChild(col);
+    }
+    container.appendChild(grid);
+    container.scrollLeft = container.scrollWidth;
+  }
+
+  function renderCurrentBelts() {
+    const { beltDays, beltEarnedDate, bestStreaks, settledYesterday } = calculatePillarData();
+    const todayData = state.history[todayStr] || { completedItems: [] };
+    const todayChecked = todayData.completedItems || [];
+    const container = document.getElementById('current-belts-container');
+    container.innerHTML = '';
+    PILLARS_DEF.forEach(pDef => {
+      const isDone = isPillarComplete(pDef, todayChecked);
+      const days = isDone ? (beltDays[pDef.id] || 0) : (settledYesterday.beltDays[pDef.id] || 0);
+      const beltInfo = getPillarBelt(days);
+      const earnedDate = beltEarnedDate[pDef.id][beltInfo.min];
+      const dateLabel = beltInfo.min === 0 ? 'STARTING BELT' : (earnedDate ? `EARNED ${earnedDate}` : '—');
+      const bestVal = bestStreaks[pDef.id] || 0;
+
+      let stripesHtml = '';
+      for (let s = 0; s < beltInfo.stripesCount; s++) stripesHtml += '<div class="card-stripe-mark"></div>';
+
+      const row = document.createElement('div');
+      row.className = 'current-belt-row';
+      row.innerHTML = `
+        <div class="current-belt-left">
+          <div class="current-belt-title">${pDef.title}</div>
+          <div class="current-belt-date">${dateLabel}</div>
+        </div>
+        <div class="current-belt-right">
+          <div class="current-belt-top">
+            <div class="card-belt-graphic ${beltInfo.class}"><div class="card-belt-bar">${stripesHtml}</div></div>
+            <div class="current-belt-name">${beltInfo.name.toUpperCase()}</div>
+          </div>
+          <div class="current-best-streak">🔥 ${bestVal}d BEST</div>
+        </div>
+      `;
+      container.appendChild(row);
+    });
+  }
+
+  function computeCompletion(startDate, endDate) {
+    let frozenCount = 0, completedSlots = 0, dayCount = 0;
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      dayCount++;
+      const dk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const dayData = state.history[dk];
+      if (dayData && dayData.frozen) { frozenCount++; continue; }
+      if (dayData && dayData.completedItems) {
+        completedSlots += PILLARS_DEF.filter(p => isPillarComplete(p, dayData.completedItems)).length;
+      }
+    }
+    const effectiveDays = Math.max(0, dayCount - frozenCount);
+    const totalSlots = effectiveDays * PILLARS_DEF.length;
+    const pct = totalSlots > 0 ? Math.round((completedSlots / totalSlots) * 100) : 0;
+    return { completedSlots, totalSlots, pct };
+  }
+
+  function renderStats() {
+    const today = new Date(now); today.setHours(0, 0, 0, 0);
+
+    // --- Past 30 days completion % ---
+    const past30Start = new Date(today); past30Start.setDate(past30Start.getDate() - 29);
+    const past30Stats = computeCompletion(past30Start, today);
+    document.getElementById('past30-completion-pct').textContent = `${past30Stats.pct}%`;
+    document.getElementById('past30-completion-fill').style.width = `${past30Stats.pct}%`;
+    document.getElementById('past30-completion-sub').textContent = `${past30Stats.completedSlots} / ${past30Stats.totalSlots}`;
+
+    // --- Past 365 days completion % ---
+    const past365Start = new Date(today); past365Start.setDate(past365Start.getDate() - 364);
+    const past365Stats = computeCompletion(past365Start, today);
+    document.getElementById('past365-completion-pct').textContent = `${past365Stats.pct}%`;
+    document.getElementById('past365-completion-fill').style.width = `${past365Stats.pct}%`;
+    document.getElementById('past365-completion-sub').textContent = `${past365Stats.completedSlots} / ${past365Stats.totalSlots}`;
+
+    // --- Last 30 days bar chart ---
+    const barContainer = document.getElementById('bar-chart-30');
+    barContainer.innerHTML = '';
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(now); d.setDate(d.getDate() - i);
+      const dk = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const dayData = state.history[dk];
+      let score = 0, isFrozen = false;
+      if (dayData && dayData.frozen) isFrozen = true;
+      else if (dayData && dayData.completedItems) score = PILLARS_DEF.filter(p => isPillarComplete(p, dayData.completedItems)).length;
+
+      const heightPct = isFrozen ? 100 : Math.max(4, (score / 5) * 100);
+      const color = isFrozen ? 'var(--cyan)' : score === 5 ? 'var(--gold)' : score > 0 ? 'var(--red-light)' : 'var(--dark4)';
+      const isToday = dk === todayStr;
+
+      const col = document.createElement('div');
+      col.className = 'bar-chart-col';
+      col.title = `${dk}: ${isFrozen ? 'FROZEN' : score + '/5'}`;
+      col.innerHTML = `<div class="bar-chart-bar ${isToday ? 'today' : ''}" style="height:${heightPct}%; background:${color};"></div>`;
+      col.onclick = () => { if (d <= now) openModal(dk); };
+      barContainer.appendChild(col);
+    }
+
+    renderHeatmap('heatmap-365');
+    renderCurrentBelts();
   }
 
   renderApp();
