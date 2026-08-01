@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BJJ Habit Tracker</title>
+<title>Black Belt Habit Tracker</title>
 
 <!-- NEW PWA META & MANIFEST LINKS -->
 <link rel="manifest" href="manifest.json">
@@ -18,7 +18,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   :root {
     --red: #c0392b; --red-light: #e74c3c; --gold: #d4a017; --cyan: #06b6d4;
-    --belt-white: #cbd5e1; --belt-blue: #2563eb; --belt-purple: #7c3aed; --belt-brown: #78350f; --belt-black: #050505; --belt-black-border: #d4a017;
+    --belt-white: #cbd5e1; --belt-blue: #2563eb; --belt-purple: #7c3aed; --belt-brown: #78350f; --belt-black: #050505; --belt-black-border: #d4a017; --belt-red: #7f1d1d;
     --dark: #0a0a0a; --dark2: #121212; --dark3: #1a1a1a; --dark4: #242424;
     --text: #e8e0d0; --text-muted: #8a8070; --text-dim: #5a5540;
     --border: #2a2520; --border-light: #3a3530;
@@ -116,7 +116,8 @@
   .bjj-belt.blue { background: var(--belt-blue); border: 1px solid #000; }
   .bjj-belt.purple { background: var(--belt-purple); border: 1px solid #000; }
   .bjj-belt.brown { background: var(--belt-brown); border: 1px solid #000; }
-  .bjj-belt.black { background: var(--belt-black); border: 1px solid var(--belt-black-border); }
+  .bjj-belt.black { background: var(--belt-black); border: 1px solid #000; }
+  .bjj-belt.red { background: var(--belt-red); border: 1px solid #000; }
   
   .belt-rank-bar { width: 44px; height: 100%; background: #000; position: absolute; right: 12px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 2px; }
   .bjj-belt.black .belt-rank-bar { background: var(--red); }
@@ -126,7 +127,7 @@
   .card-belt-graphic.blue { background: var(--belt-blue); }
   .card-belt-graphic.purple { background: var(--belt-purple); }
   .card-belt-graphic.brown { background: var(--belt-brown); }
-  .card-belt-graphic.black { background: var(--belt-black); border: 1px solid var(--belt-black-border); }
+  .card-belt-graphic.black { background: var(--belt-black); border: 1px solid #000; }
   .card-belt-bar { width: 18px; height: 100%; background: #000; position: absolute; right: 4px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 1px; }
   .card-belt-graphic.large .card-belt-bar { width: 24px; right: 6px; }
   .card-belt-graphic.large .card-stripe-mark { width: 3px; }
@@ -155,7 +156,8 @@
   .mini-belt.blue { background: var(--belt-blue); }
   .mini-belt.purple { background: var(--belt-purple); }
   .mini-belt.brown { background: var(--belt-brown); }
-  .mini-belt.black { background: var(--belt-black); border: 1px solid var(--belt-black-border); }
+  .mini-belt.black { background: var(--belt-black); border: 1px solid #000; }
+  .mini-belt.red { background: var(--belt-red); border: 1px solid #000; }
   .mini-belt-bar { width: 10px; height: 100%; background: #000; position: absolute; right: 2px; }
   .mini-belt.black .mini-belt-bar { background: var(--red); }
   .no-belt-dot { width: 4px; height: 4px; background: var(--dark4); border-radius: 50%; margin-top: 4px; }
@@ -182,7 +184,7 @@
   .pillar-belt-visual.blue { background: var(--belt-blue); border-color: #000; }
   .pillar-belt-visual.purple { background: var(--belt-purple); border-color: #000; }
   .pillar-belt-visual.brown { background: var(--belt-brown); border-color: #000; }
-  .pillar-belt-visual.black { background: var(--belt-black); border-color: var(--belt-black-border); }
+  .pillar-belt-visual.black { background: var(--belt-black); border-color: #000; }
   .pillar-belt-visual .belt-rank-bar { width: 56px; height: 100%; background: #000; position: absolute; right: 14px; display: flex; align-items: center; justify-content: space-evenly; padding: 0 3px; }
   .pillar-belt-visual.black .belt-rank-bar { background: var(--red); }
   .belt-status-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
@@ -216,6 +218,12 @@
   .habit-item.checked .habit-check { background: var(--red); border-color: var(--red); }
   .habit-item.checked .habit-check::after { content: ''; width: 6px; height: 4px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); }
   .habit-item.checked .habit-name { color: var(--text-muted); text-decoration: line-through; }
+
+  .habit-tag { font-size: 7px; font-family: var(--font-mono); letter-spacing: 0.5px; padding: 2px 5px; border-radius: 3px; flex-shrink: 0; }
+  .habit-tag.core { color: var(--gold); border: 1px solid rgba(212, 160, 23, 0.4); background: rgba(212, 160, 23, 0.08); }
+  .habit-tag.nice { color: var(--text-dim); border: 1px solid var(--border-light); background: transparent; }
+  .habit-item.nice-to-have { opacity: 0.72; }
+  .habit-item.nice-to-have .habit-icon { color: var(--text-dim); }
 
   /* Modal Popup */
   .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 12px; }
@@ -294,8 +302,8 @@
 <div class="app">
   <div class="header">
     <div class="kanji-row">the art of becoming 1% better every day</div>
-    <span class="title-main">BADASS HABIT TRACKER</span>
-    <span class="title-sub">Become A Bad Motherfucker</span>
+    <span class="title-main">DAILY LIFE</span>
+    <span class="title-sub">OF A BAD MOTHERFUCKER</span>
   </div>
 
   <div class="nav-tabs" id="nav-tabs">
@@ -310,7 +318,7 @@
   <div id="page-tracker" class="page-content active">
     <div class="stats-row">
       <div class="stat-card">
-        <div class="stat-num highlight" id="stat-score">0/5</div>
+        <div class="stat-num highlight" id="stat-score">0/6</div>
         <div class="stat-lbl">PILLARS TODAY</div>
       </div>
       <div class="stat-card">
@@ -373,7 +381,7 @@
     <div class="bar-chart-legend">
       <span><span class="legend-dot" style="background:var(--dark4)"></span>MISSED</span>
       <span><span class="legend-dot" style="background:var(--gold); opacity:0.4"></span>PARTIAL</span>
-      <span><span class="legend-dot" style="background:var(--gold)"></span>ALL 5</span>
+      <span><span class="legend-dot" style="background:var(--belt-red)"></span>ALL 6</span>
       <span><span class="legend-dot" style="background:var(--cyan)"></span>FROZEN</span>
     </div>
 
@@ -388,7 +396,7 @@
     <div class="bar-chart-legend">
       <span><span class="legend-dot" style="background:var(--dark4)"></span>MISSED</span>
       <span><span class="legend-dot" style="background:var(--gold); opacity:0.4"></span>PARTIAL</span>
-      <span><span class="legend-dot" style="background:var(--gold)"></span>ALL 5</span>
+      <span><span class="legend-dot" style="background:var(--belt-red)"></span>ALL 6</span>
       <span><span class="legend-dot" style="background:var(--cyan)"></span>FROZEN</span>
     </div>
 
@@ -511,16 +519,46 @@
       { count: 2, name: 'BLUE BELT DAY', class: 'blue' },
       { count: 3, name: 'PURPLE BELT DAY', class: 'purple' },
       { count: 4, name: 'BROWN BELT DAY', class: 'brown' },
-      { count: 5, name: 'BLACK BELT DAY', class: 'black' }
+      { count: 5, name: 'BLACK BELT DAY', class: 'black' },
+      { count: 6, name: 'RED BELT DAY', class: 'red' }
     ]
   };
 
   const PILLARS_DEF = [
-    { id: 1, title: "POISON AVOIDANCE", mode: "ALL REQUIRED", code: "01", items: ["No Nicotine", "No Alcohol", "No Sugar", "No Junk Food", "No Soda"] },
-    { id: 2, title: "PHYSICAL TRAINING", mode: "ANY 1 REQUIRED", code: "02", items: ["Strength Training", "Cardio", "Martial Arts", "10k Steps"] },
-    { id: 3, title: "SLEEP & RECOVERY", mode: "ALL REQUIRED", code: "03", items: ["7-9 Hours Sleep", "Morning Sunlight", "No Caffeine after 12pm", "No Food after 8pm", "No Screens after 10pm"] },
-    { id: 4, title: "NUTRITION & FUEL", mode: "ALL REQUIRED", code: "04", items: ["Protein", "Creatine", "Fruits & Veggies", "Healthy Fats"] },
-    { id: 5, title: "FPV & ENGINEERING", mode: "ANY 1 REQUIRED", code: "05", items: ["FPV", "Engineering"] }
+    { id: 1, title: "POISON AVOIDANCE", mode: "ALL REQUIRED", code: "01", items: [
+      { name: "No Nicotine", core: true },
+      { name: "No Alcohol", core: true },
+      { name: "No Sugar", core: false },
+      { name: "No Junk Food", core: false },
+      { name: "No Soda", core: false }
+    ] },
+    { id: 2, title: "PHYSICAL TRAINING", mode: "ANY 1 REQUIRED", code: "02", items: [
+      { name: "Strength Training", core: true },
+      { name: "Cardio", core: true },
+      { name: "Martial Arts", core: true },
+      { name: "10k Steps", core: true }
+    ] },
+    { id: 3, title: "SLEEP & RECOVERY", mode: "ALL REQUIRED", code: "03", items: [
+      { name: "7-9 Hours Sleep", core: true },
+      { name: "Morning Sunlight", core: true },
+      { name: "No Caffeine after 2pm", core: true },
+      { name: "No Food after 8pm", core: false },
+      { name: "No Screens after 10pm", core: false },
+      { name: "Wake Up Before 8am", core: false }
+    ] },
+    { id: 4, title: "NUTRITION & FUEL", mode: "ALL REQUIRED", code: "04", items: [
+      { name: "Protein", core: true },
+      { name: "Fruits & Veggies", core: true },
+      { name: "Healthy Fats", core: true },
+      { name: "Creatine", core: false }
+    ] },
+    { id: 5, title: "FPV & ENGINEERING", mode: "ANY 1 REQUIRED", code: "05", items: [
+      { name: "FPV", core: true },
+      { name: "Engineering", core: true }
+    ] },
+    { id: 6, title: "MIND", mode: "ALL REQUIRED", code: "06", items: [
+      { name: "Reading", core: true }
+    ] }
   ];
 
   const DEFAULT_CATEGORIES = [
@@ -553,13 +591,23 @@
   if (!state.extras) state.extras = [];
   if (!state.categories || !state.categories.length) state.categories = DEFAULT_CATEGORIES;
 
+  // Migration: "No Caffeine after 12pm" was renamed to "No Caffeine after 2pm"
+  Object.keys(state.history).forEach(dateKey => {
+    const day = state.history[dateKey];
+    if (day && Array.isArray(day.completedItems)) {
+      const idx = day.completedItems.indexOf('No Caffeine after 12pm');
+      if (idx > -1) day.completedItems[idx] = 'No Caffeine after 2pm';
+    }
+  });
+
   function saveState() { localStorage.setItem('bjj_habit_chama_state', JSON.stringify(state)); }
 
   function isPillarComplete(pillarDef, checkedItems) {
     if (!checkedItems || !Array.isArray(checkedItems)) return false;
+    const coreNames = pillarDef.items.filter(i => i.core).map(i => i.name);
     return pillarDef.mode === "ALL REQUIRED"
-      ? pillarDef.items.every(item => checkedItems.includes(item))
-      : pillarDef.items.some(item => checkedItems.includes(item));
+      ? coreNames.every(name => checkedItems.includes(name))
+      : coreNames.some(name => checkedItems.includes(name));
   }
 
   function getEarnedBeltFloor(days) {
@@ -570,12 +618,12 @@
 
   function calculatePillarData() {
     const sortedDates = Object.keys(state.history).sort();
-    const activeStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    const bestStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    const maxHistoricalStreaks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    const rankProgressDays = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    const missStreak = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    const beltEarnedDate = { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} };
+    const activeStreaks = {}; const bestStreaks = {}; const maxHistoricalStreaks = {};
+    const rankProgressDays = {}; const missStreak = {}; const beltEarnedDate = {};
+    PILLARS_DEF.forEach(p => {
+      activeStreaks[p.id] = 0; bestStreaks[p.id] = 0; maxHistoricalStreaks[p.id] = 0;
+      rankProgressDays[p.id] = 0; missStreak[p.id] = 0; beltEarnedDate[p.id] = {};
+    });
     let settledYesterday = null;
 
     sortedDates.forEach(dateKey => {
@@ -719,16 +767,19 @@
       const group = document.createElement('div');
       group.className = `habit-group ${isDone ? 'completed' : ''}`;
 
-      let itemsHtml = pDef.items.map(item => {
-        const checked = todayChecked.includes(item);
-        const escapedItem = item.replace(/'/g, "\\'");
+      let itemsHtml = [...pDef.items].sort((a, b) => (b.core - a.core)).map(item => {
+        const checked = todayChecked.includes(item.name);
+        const escapedItem = item.name.replace(/'/g, "\\'");
         return `
-          <div class="habit-item ${checked ? 'checked' : ''}" onclick="toggleCheck(${pDef.id}, '${escapedItem}')">
+          <div class="habit-item ${checked ? 'checked' : ''} ${item.core ? '' : 'nice-to-have'}" onclick="toggleCheck(${pDef.id}, '${escapedItem}')">
             <div class="habit-left">
               <div class="habit-icon">${pDef.code}</div>
-              <div class="habit-name">${item}</div>
+              <div class="habit-name">${item.name}</div>
             </div>
-            <div class="habit-check"></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="habit-tag ${item.core ? 'core' : 'nice'}">${item.core ? 'CORE' : 'BONUS'}</span>
+              <div class="habit-check"></div>
+            </div>
           </div>
         `;
       }).join('');
@@ -782,7 +833,7 @@
     });
 
     const dailyRank = CONFIG.dailyRanks[completedCount];
-    document.getElementById('stat-score').textContent = `${completedCount}/5`;
+    document.getElementById('stat-score').textContent = `${completedCount}/${PILLARS_DEF.length}`;
     document.getElementById('stat-freezes').textContent = state.freezes[currentMonthKey] ?? 3;
     document.getElementById('daily-belt-text').textContent = dailyRank.name;
     document.getElementById('daily-belt-visual').className = `bjj-belt ${dailyRank.class}`;
@@ -1014,16 +1065,19 @@
       const pGroup = document.createElement('div');
       pGroup.className = 'modal-pillar-group';
 
-      let itemsHtml = pDef.items.map(item => {
-        const checked = activeModalCheckedItems.includes(item);
-        const escapedItem = item.replace(/'/g, "\\'");
+      let itemsHtml = [...pDef.items].sort((a, b) => (b.core - a.core)).map(item => {
+        const checked = activeModalCheckedItems.includes(item.name);
+        const escapedItem = item.name.replace(/'/g, "\\'");
         return `
-          <div class="habit-item ${checked ? 'checked' : ''}" onclick="toggleModalCheck('${escapedItem}')">
+          <div class="habit-item ${checked ? 'checked' : ''} ${item.core ? '' : 'nice-to-have'}" onclick="toggleModalCheck('${escapedItem}')">
             <div class="habit-left">
               <div class="habit-icon">${pDef.code}</div>
-              <div class="habit-name">${item}</div>
+              <div class="habit-name">${item.name}</div>
             </div>
-            <div class="habit-check"></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="habit-tag ${item.core ? 'core' : 'nice'}">${item.core ? 'CORE' : 'BONUS'}</span>
+              <div class="habit-check"></div>
+            </div>
           </div>
         `;
       }).join('');
@@ -1036,7 +1090,7 @@
     });
 
     const rank = CONFIG.dailyRanks[completedCount];
-    document.getElementById('modal-rank-sub').textContent = `${rank.name} (${completedCount}/5)`;
+    document.getElementById('modal-rank-sub').textContent = `${rank.name} (${completedCount}/${PILLARS_DEF.length})`;
   }
 
   function toggleModalFreeze() {
@@ -1148,8 +1202,10 @@
 
   function heatColor(score) {
     if (score <= 0) return null;
-    const steps = [0.25, 0.45, 0.65, 0.85, 1];
-    return `rgba(212, 160, 23, ${steps[Math.min(score, 5) - 1]})`;
+    const max = PILLARS_DEF.length;
+    const steps = [0.2, 0.35, 0.5, 0.65, 0.8, 1];
+    const idx = Math.min(Math.round((score / max) * steps.length), steps.length) - 1;
+    return `rgba(212, 160, 23, ${steps[Math.max(idx, 0)]})`;
   }
 
   function renderHeatmap(containerId) {
@@ -1185,7 +1241,7 @@
 
           if (frozen) cell.style.background = 'var(--cyan)';
           else { const c = heatColor(score); if (c) cell.style.background = c; }
-          cell.title = `${dk}: ${frozen ? 'FROZEN' : score + '/5'}`;
+          cell.title = `${dk}: ${frozen ? 'FROZEN' : score + '/' + PILLARS_DEF.length}`;
           cell.onclick = () => openModal(dk);
         }
         col.appendChild(cell);
@@ -1274,13 +1330,13 @@
       if (dayData && dayData.frozen) isFrozen = true;
       else if (dayData && dayData.completedItems) score = PILLARS_DEF.filter(p => isPillarComplete(p, dayData.completedItems)).length;
 
-      const heightPct = isFrozen ? 100 : Math.max(4, (score / 5) * 100);
-      const color = isFrozen ? 'var(--cyan)' : score === 5 ? 'var(--gold)' : score > 0 ? heatColor(score) : 'var(--dark4)';
+      const heightPct = isFrozen ? 100 : Math.max(4, (score / PILLARS_DEF.length) * 100);
+      const color = isFrozen ? 'var(--cyan)' : score === PILLARS_DEF.length ? 'var(--belt-red)' : score > 0 ? heatColor(score) : 'var(--dark4)';
       const isToday = dk === todayStr;
 
       const col = document.createElement('div');
       col.className = 'bar-chart-col';
-      col.title = `${dk}: ${isFrozen ? 'FROZEN' : score + '/5'}`;
+      col.title = `${dk}: ${isFrozen ? 'FROZEN' : score + '/' + PILLARS_DEF.length}`;
       col.innerHTML = `<div class="bar-chart-bar ${isToday ? 'today' : ''}" style="height:${heightPct}%; background:${color};"></div>`;
       col.onclick = () => { if (d <= now) openModal(dk); };
       barContainer.appendChild(col);
